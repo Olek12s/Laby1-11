@@ -1,0 +1,26 @@
+package org.example;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+
+
+public class Server
+{
+    private ServerSocket serverSocket;
+
+    public Server() throws IOException {
+        serverSocket = new ServerSocket(23);
+    }
+
+    public void listen() throws IOException {
+        System.out.println("Server started");
+        while (true) {
+            Socket socket = serverSocket.accept();
+            System.out.println("Client connected");
+            Thread clientThread = new Thread(new ClientHandler(socket));
+            clientThread.start();
+        }
+    }
+}
